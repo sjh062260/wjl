@@ -1,0 +1,52 @@
+- config:
+    name: "create wop testsets."
+#    import_module_functions:
+#        - tests.data.custom_functions
+    variable_binds:
+        - version: 1.0
+        - tenantId: 9001
+        - accessToken: d68324d70c304d389dbd78c63922dff9
+    request:
+        base_url: http://wopv2.dev.wanjianglong.net
+
+
+# - test:
+#     name: get token
+#     variable_binds:
+#         - appid: 'SYDYC_FZ_TEST'
+#         - secret: 'd16f46cbbcced110da53a805fe50b9c1'
+#     request:
+#         url: /token
+#         method: GET
+#         json:
+#             grant_type: client_credential
+#             appid: $appid
+#             secret: $secret
+#     extract_binds:
+#        - token: content.token
+#         - access_token: content.access_token
+#     validators:
+#         - {"check": "status_code", "comparator": "eq", "expected": 200}
+#         - {"check": "content.token", "comparator": "len_eq", "expected": 32}
+
+- test:
+    name: member detail by mobile
+    variable_binds:
+        - appid: 'SYDYC_FZ_TEST'
+        - secret: 'd16f46cbbcced110da53a805fe50b9c1'
+    request:
+        url: /member/detail
+        method: POST
+        json:
+            version: $version
+            accessToken: $accessToken
+            tenantId: $tenantId
+            data:
+                mobile: 18627169820
+    # extract_binds:
+    #    - token: content.token
+    #    - access_token: content.access_token
+    validators:
+       - {"check": "status_code", "comparator": "eq", "expected": 200}
+       # - {"check": "content.msg", "comparator": "eq", "expected": "请求成功"}
+
